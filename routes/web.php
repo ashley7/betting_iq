@@ -1,5 +1,5 @@
 <?php
-
+use App\UserTag;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,13 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('ticket');
+	$save_user_tag = new UserTag();
+    $save_user_tag->tag = time();
+    $save_user_tag->save();
+    session(['tag'=>$save_user_tag->tag]);
+    return view('welcome');
 });
-
-Route::resource('ticket','TicketController');
-
 Auth::routes();
 
+Route::resource('ticket','TicketController');
+Route::resource('games','GameCodeController');
+Route::resource('process_ticket','ProcessTicketsController');
+
+
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/resize_photoes', 'TicketController@resize_photoes');

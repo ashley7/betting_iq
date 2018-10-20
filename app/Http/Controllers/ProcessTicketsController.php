@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\GameCode;
 use App\Ticket;
 
-
-class TicketController extends Controller
+class ProcessTicketsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-       //  $ticket = array();
-       //  foreach(new Ticket(array('101','102','103','104','106'), 3) as $tickets){
-       //      array_push($ticket, $tickets);
-       //  }
-       // echo  count($ticket); 
-      
-        return view('ticket');
+
+
     }
 
     /**
@@ -31,7 +26,11 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view("images");
+        $game_code = GameCode::where('tag',session('tag'))->get();
+        if ($game_code->count() == 0) {
+            return back()->with(['status'=>'You have no games.']);
+        }
+        return view('generate_tickets')->with(['game_code'=>$game_code]);
     }
 
     /**
@@ -42,7 +41,29 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric']);
+
+        $original_ticket = array();
+
+        $game_code = GameCode::where('tag',session('tag'))->select('game_code')->get();
+        foreach ($game_code as $key => $game_value) {
+            array_push($original_ticket, $game_value->game_code);
+        }
+
+        if ($request->safeguards == count($original_ticket)) {
+            echo "Your Safe guard is equal to the Number of matches";
+            return;
+        }
+
+        $tickets = array();   
+
+        foreach(new Ticket(($original_ticket), count($original_ticket) - $request->safeguards) as $new_tickets){
+            array_push($tickets,$new_tickets);
+        }
+
+        $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket];
+
+        return view('newtickets')->with($data);
     }
 
     /**
@@ -76,24 +97,7 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,['odds'=>'required','amount'=>'required','safeguards'=>'required|numeric']);
-
-        $original_ticket = explode(",",$request->odds);
-
-        if ($request->safeguards == count($original_ticket)) {
-            echo "Your Safe guard is equal to the Number of matches";
-            return;
-        }
-
-        $tickets = array();   
-
-        foreach(new Ticket(($original_ticket), count($original_ticket) - $request->safeguards) as $new_tickets){
-            array_push($tickets,$new_tickets);
-        }
-
-        $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket];
-
-        return view('newtickets')->with($data);
+        //
     }
 
     /**
@@ -105,15 +109,5 @@ class TicketController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function resize_photoes(Request $request)
-    {
-   
-        $image_files=$request->file('photo');
-        $image_name=time().'.'.$image_files->getClientOriginalExtension();
-        $destination=public_path('images/'.$image_name);
-        \Image::make($image_files)->resize(600,600)->save($destination);
-                    
     }
 }

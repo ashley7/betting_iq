@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
+          <div class="card-header"><h2>STEP 1: Enter all your single ticket games</h2></div>
+          <br>
             <div class="card">              
 
                 <div class="card-body">
@@ -12,46 +14,68 @@
                             {{ session('status') }}
                         </div>
                     @endif
+ 
+                   
 
-                    <h1>BET ODDS</h1>
+                    <!-- <form method="POST" action="{{route('ticket.store')}}"> -->
+                       
+                        <label>Game code</label>
+                        <input type="text" id="codes" class="form-control" placeholder="e.g 1002">
 
-                    <form method="POST" action="{{route('ticket.store')}}">
-                        @csrf
-                        <label>Enter your Odds here</label>
-                        <input type="text" name="odds" class="form-control" placeholder="e.g 101,102,4098,234,4312">
+                        <label>Bet Type</label>
+                        <input type="text" id="bet_type" class="form-control" placeholder="e.g X or 1 or 2">
 
-                        <label>If I loose </label>
-                        <input type="text" name="safeguards" class="form-control" placeholder="n matches">
-
-                        <label>Amount</label>
-                        <input type="text" name="amount" class="form-control number">
+                        <label>Odd</label>
+                        <input type="number" step="any" id="odd" min="1" class="form-control" placeholder="e.g 1.7">
+                     
                         <br>
-                        <button type="submit" class="btn btn-primary">Process</button>
-                    </form>
+                        <button id="btnsave" class="btn btn-primary">Save</button>
+
+                        <a href="{{route('process_ticket.create')}}" class="btn btn-success" style="float: right;">Next</a>
+                    <!-- </form> -->
+                    <br>
+                    <p id="display"></p>
+                    <p id="result"></p>
+ 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
 
 @push('scripts')
-
 <script src="{{asset('js/jquery-1.12.4.js')}}"></script>
+    <script type="text/javascript">
+        
+          $("#btnsave").click(function() {
+            $("#btnsave").attr("disabled", true);
+            $('#btnsave').text("Processing ...");
+            $('#result').text("...");
 
- <script type="text/javascript">  
-    $('input.number').keyup(function(event) {
-      // skip for arrow keys
-      if(event.which >= 37 && event.which <= 40) return;
+            $.ajax({
+                    type: "POST",
+                    url: "{{ route('games.store') }}",
+                data: {
+                     game_odd: $("#odd").val(),                         
+                     game_type: $("#bet_type").val(),                         
+                     game_code: $("#codes").val(),                         
+                    _token: "{{Session::token()}}"
+                },
+                success: function(result){
 
-      // format number
-      $(this).val(function(index, value) {
-        return value
-        .replace(/\D/g, "")
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        ;
-      });
-    });
-</script>
+                  $('#display').text("");
+                  $('#btnsave').text("Add new game");
+                  $('#result').text(result);
+                  $("#btnsave").attr("disabled", false);
 
+                  $("#odd").val(" ")
+                  $("#bet_type").val(" ")
+                  $("#codes").val(" ")
+
+                }
+              })  
+            });    
+    </script>
 @endpush

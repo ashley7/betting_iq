@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -18,6 +18,35 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+    .image-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .placeholder {
+      position: relative;
+      width: 100%;
+      filter: blur(10px);
+      transform: scale(1);
+    }
+
+
+    .picture {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      transition: opacity 1s linear;
+    }
+
+
+    .picture.loaded {
+      opacity: 1;
+    }
+</style>
 </head>
 <body>
     <div id="app">
@@ -41,11 +70,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
                             </li>
                             <li class="nav-item">
                                 @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <!-- <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a> -->
                                 @endif
                             </li>
                         @else
