@@ -41,7 +41,7 @@ class ProcessTicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric']);
+         $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric']);
 
         $original_ticket = array();
 
@@ -57,13 +57,15 @@ class ProcessTicketsController extends Controller
 
         $tickets = array();   
 
-        foreach(new Ticket(($original_ticket), count($original_ticket) - $request->safeguards) as $new_tickets){
+        foreach(new Ticket($original_ticket, (count($original_ticket) - $request->safeguards)) as $new_tickets){
             array_push($tickets,$new_tickets);
         }
 
         $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket];
 
-        return view('newtickets')->with($data);
+        $pdf = \PDF::loadView('pdf',$data);
+        return $pdf->download('tickets.pdf');
+        // return view('newtickets')->with($data);
     }
 
     /**

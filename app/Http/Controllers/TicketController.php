@@ -116,4 +116,6 @@ class TicketController extends Controller
         \Image::make($image_files)->resize(600,720)->save($destination);
                     
     }
+
+  
 }
