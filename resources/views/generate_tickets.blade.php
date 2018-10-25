@@ -43,7 +43,7 @@
                         <input type="text" name="amount" class="form-control">
 
                         <br>
-                        <button class="btn btn-primary" type="submit">Generate codes</button>
+                        <button class="btn btn-primary" id="btn_gen" type="submit">Generate codes</button>
                     </form>                  
                 </div>
             </div>
@@ -53,3 +53,13 @@
 
 
 @endsection
+
+@push('scripts')
+    <script src="{{asset('js/jquery-1.12.4.js')}}"></script>
+        <script type="text/javascript">
+            $("#btn_gen").click(function() {
+            $("#btn_gen").attr("disabled", true);
+            $('#btn_gen').text("Processing ...");
+        })
+    </script>
+@endpush
