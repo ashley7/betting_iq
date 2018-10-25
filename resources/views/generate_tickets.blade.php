@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <th>Game code</th> <th>Type</th> <th>Odd</th>
                         </thead>

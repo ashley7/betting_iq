@@ -36,6 +36,19 @@
                     <br>
                     <p id="display"></p>
                     <p id="result"></p>
+
+                    <br><br>                    
+                     <table id="content" class="table table-hover" border="2">
+                        <thead>
+                            <tr>
+                                <th>Game code</th>
+                                <th>Type</th>
+                                <th>Odd</th>                                 
+                             </tr>
+                        </thead>
+                        <tbody id="emp">
+                        </tbody>
+                    </table>
  
                 </div>
             </div>
@@ -48,11 +61,12 @@
 @push('scripts')
 <script src="{{asset('js/jquery-1.12.4.js')}}"></script>
     <script type="text/javascript">
+
+          load_table();
         
           $("#btnsave").click(function() {
-            $("#btnsave").attr("disabled", true);
-            $('#btnsave').text("Processing ...");
-            $('#result').text("...");
+          $("#btnsave").attr("disabled", true);
+          $('#btnsave').text("Processing ...");
 
             $.ajax({
                     type: "POST",
@@ -73,9 +87,28 @@
                   $("#odd").val(" ")
                   $("#bet_type").val(" ")
                   $("#codes").val(" ")
+                  $("#emp > tr").remove();
+                  load_table();
 
                 }
-              })  
-            });    
+              })
+
+        });
+
+          function load_table(){
+              $.ajax({ 
+                url : "{{route('games.index')}}",
+                type : 'GET',
+                dataType : 'JSON',
+                success : function(data) {                    
+                    $(data).each(
+                      function() {
+                          $('tbody#emp').append(
+                            '<tr> <td>' + this.game_code+ '</td><td>'+ this.game_type+ '</td><td>' + this.game_odd+ '</td>'+' </tr>')
+                      });
+                },
+                error : function(data) {} 
+              });
+          }
     </script>
 @endpush

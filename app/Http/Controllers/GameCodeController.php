@@ -14,7 +14,7 @@ class GameCodeController extends Controller
      */
     public function index()
     {
-        //
+        return GameCode::select('game_type','game_odd','game_code','id')->where('tag',session('tag'))->get();
     }
 
     /**
@@ -39,7 +39,9 @@ class GameCodeController extends Controller
         $save_gamecode->tag = session('tag');
         try {
             $save_gamecode->save();
-            echo "Saved successfully, your countainer has ".GameCode::where('tag',session('tag'))->count()." games";
+            echo "Saved successfully, your container has ".GameCode::where('tag',session('tag'))->count()." games";
+
+
         } catch (\Exception $e) {
             echo "All fields are required";
         }

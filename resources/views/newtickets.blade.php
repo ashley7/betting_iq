@@ -20,10 +20,10 @@
                   @foreach($tickets as $diffrent_options)
                     <div class="col-md-4 col-xs-12 col-sm-12 col-lg-4 ">
 
-                         <table border="2" class="table">
+                         <table border="2" class="table table-hover">
                          
                             @if($amount < 1000)
-                             <caption>Bet amount UGX: 10,00</caption>                       
+                             <caption>Bet amount UGX: 1,000</caption>                       
                              @else
                              <caption>Bet amount UGX: {{number_format(round((double)$amount))}}</caption>
                             @endif
@@ -54,7 +54,7 @@
                             </tr>                           
                           </table>
                           @if($amount < 1000)
-                             <caption>UGX: {{number_format((int)($sum_amount*1000))}}</caption> (<i>The multiplier factor was upgraded to 1000</i>)                             
+                             <caption>UGX: {{number_format((int)($sum_amount*1000))}}</caption> (<i>The multiplier factor was upgraded to 1,000</i>)                             
                              @else
                              <caption>UGX: {{number_format((int)($sum_amount*$amount))}}</caption>
                           @endif
