@@ -63,9 +63,9 @@ class ProcessTicketsController extends Controller
 
         $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket];
 
-        $pdf = \PDF::loadView('pdf',$data);
-        return $pdf->download('tickets.pdf');
-        // return view('newtickets')->with($data);
+        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
+        // return $pdf->download('tickets_'.time().'.pdf'); 
+        return view('newtickets')->with($data);
     }
 
     /**

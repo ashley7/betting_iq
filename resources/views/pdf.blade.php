@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <head>
 	<title></title>
 </head>
@@ -31,7 +32,9 @@
 	                     $sum_amount = $sum_amount * $game_code->game_odd;
 	                  }                                
 	               ?>
-	              	<tr> <td>{{$tickets}}</td> <td>{{$game_code->game_type}}</td> <td>{{$game_code->game_odd}}</td> </tr>          
+                  <tr> <td></td> <td></td><td> </td> </tr>
+	              	<tr> <td>{{$tickets}}</td> <td>{{$game_code->game_type}}</td> <td>{{$game_code->game_odd}}</td> </tr> 
+
 	              @endif
             @endforeach
             <tr>

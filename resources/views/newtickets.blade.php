@@ -14,6 +14,12 @@
                             {{$orig_ticket}},
                         @endforeach]                    
                   </p>
+
+                  @php
+                    $my_ticket = "tickets_".session('tag').".pdf";
+                  @endphp
+
+                  <a target="_blank" href="{{asset('tickets')}}/{{$my_ticket}}">Download</a>
                
 
             <div class="row">
