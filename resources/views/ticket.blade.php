@@ -28,7 +28,7 @@
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="X">X</option>
-                          <option value="OVER">OVER</option>
+                          <option value="O2.5">OVER</option>
                           <option value="UNDER">UNDER</option>
                           <option value="HANDICAP">HANDICAP</option>
                         </select>

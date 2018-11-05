@@ -108,14 +108,13 @@ class TicketController extends Controller
     }
 
     public function resize_photoes(Request $request)
-    {
-   
-        $image_files=$request->file('photo');
-        $image_name=time().'.'.$image_files->getClientOriginalExtension();
-        $destination=public_path('images/'.$image_name);
-        \Image::make($image_files)->resize(600,720)->save($destination);
-                    
-    }
-
-  
+    {   
+        $count = 0;
+        foreach ($request->file('photo') as $image_files) {    
+            $image_name=$count.'_'.time().'.'.$image_files->getClientOriginalExtension();
+            $destination=public_path('images/'.$image_name);
+            \Image::make($image_files)->resize(816,613)->save($destination);
+            $count++;
+        }                    
+    }  
 }

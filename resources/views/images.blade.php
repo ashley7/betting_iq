@@ -7,7 +7,7 @@
             <div class="card">
                  <form method="POST" action="/resize_photoes" enctype="multipart/form-data">
                     @csrf
-                     <input type="file" name="photo">
+                     <input type="file" multiple="multiple" name="photo[]">
                      <button type="submit">Resize</button>
                  </form>
             </div>

@@ -50,16 +50,5 @@
         </div>
     </div>
 </div>
-
-
 @endsection
-
-@push('scripts')
-    <script src="{{asset('js/jquery-1.12.4.js')}}"></script>
-        <script type="text/javascript">
-            $("#btn_gen").click(function() {
-            // $("#btn_gen").attr("disabled", true);
-            $('#btn_gen').text("Processing ...");
-        })
-    </script>
-@endpush
+ 
