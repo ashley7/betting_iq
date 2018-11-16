@@ -45,24 +45,26 @@ class ProcessTicketsController extends Controller
 
         $original_ticket = array();
         $tickets = array();
-        $safeguards = $request->safeguards;
 
         $game_code = GameCode::where('tag',session('tag'))->select('game_code')->get();
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
         }
 
-        if ($safeguards == count($original_ticket)) {
+        if ($request->safeguards == count($original_ticket)) {
             echo "Your Safe guard is equal to the Number of matches";
             return;
-        }       
+        }
 
-        $data = ['original_amount'=>(str_replace(',','',$request->amount)),'original_ticket'=>$original_ticket,'safeguards'=>$safeguards];
+        foreach(new Ticket($original_ticket, (count($original_ticket) - $request->safeguards)) as $new_tickets){
+            array_push($tickets,$new_tickets);
+        }
 
-        $pdf = \PDF::loadView('pdf_blade',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
- 
-        return view('newtickets_multipal')->with($data);
-        // return view('pdf_blade')->with($data);
+        $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$request->safeguards];
+
+        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
+        // return $pdf->download('tickets_'.time().'.pdf'); 
+        return view('newtickets')->with($data);
     }
 
     /**
@@ -96,30 +98,30 @@ class ProcessTicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
+
         $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric']);
 
         $original_ticket = array();
         $tickets = array();
+        $safeguards = $request->safeguards;
 
         $game_code = GameCode::where('tag',session('tag'))->select('game_code')->get();
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
         }
 
-        if ($request->safeguards == count($original_ticket)) {
+        if ($safeguards == count($original_ticket)) {
             echo "Your Safe guard is equal to the Number of matches";
             return;
-        }
+        }       
 
-        foreach(new Ticket($original_ticket, (count($original_ticket) - $request->safeguards)) as $new_tickets){
-            array_push($tickets,$new_tickets);
-        }
+        $data = ['original_amount'=>(str_replace(',','',$request->amount)),'original_ticket'=>$original_ticket,'safeguards'=>$safeguards];
 
-        $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$request->safeguards];
-
-        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
-        // return $pdf->download('tickets_'.time().'.pdf'); 
-        return view('newtickets')->with($data);
+        $pdf = \PDF::loadView('pdf_blade',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
+ 
+        return view('newtickets_multipal')->with($data);
     }
 
     /**

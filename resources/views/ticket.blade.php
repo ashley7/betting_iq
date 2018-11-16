@@ -23,16 +23,7 @@
                         <input type="text" id="codes" class="form-control" placeholder="e.g 1002">
 
                         <label>Bet Type</label>
-                        <select id="bet_type" class="form-control">
-                          <option></option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="X">X</option>
-                          <option value="O2.5">OVER</option>
-                          <option value="UNDER">UNDER</option>
-                          <option value="HANDICAP">HANDICAP</option>
-                        </select>
- 
+                        <input type="text" id="bet_type" class="form-control" placeholder="e.g X">                        
                         <label>Odd</label>
                         <input type="number" step="any" id="odd" min="1" class="form-control" placeholder="e.g 1.7">
                      

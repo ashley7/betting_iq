@@ -40,8 +40,6 @@ class GameCodeController extends Controller
         try {
             $save_gamecode->save();
             echo "Saved successfully, your container has ".GameCode::where('tag',session('tag'))->count()." games";
-
-
         } catch (\Exception $e) {
             echo "All fields are required";
         }

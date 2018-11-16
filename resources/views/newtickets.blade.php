@@ -19,7 +19,8 @@
                     $my_ticket = "tickets_".session('tag').".pdf";
                   @endphp
 
-                  <a target="_blank" href="{{asset('tickets')}}/{{$my_ticket}}">Download</a>
+                  <a class="btn btn-primary" style="float: right;" href="{{asset('tickets')}}/{{$my_ticket}}">Download</a>
+                  <br><br>
                
 
             <div class="row">
