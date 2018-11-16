@@ -95,17 +95,17 @@ class HomeController extends Controller
 
        public static function getTotalAmount($ticket,$amount)
         {
-           $sum_amount = 0;
+           $sum_odds = 1;
            foreach ($ticket as $ticket_value) {
              $game_code = GameCode::where('game_code',$ticket_value)->where('tag',session('tag'))->first(); 
              if (!empty($game_code)) {
                  if ($game_code->game_odd>0) {
-                    $sum_amount = $sum_amount + ($game_code->game_odd*$amount);
+                    $sum_odds = $sum_odds * $game_code->game_odd;
                 } 
              }
            }
 
-           return $sum_amount;
+           return $sum_odds*$amount;
         }
 
        public static function ticketContainsGames($ticket, $games)
