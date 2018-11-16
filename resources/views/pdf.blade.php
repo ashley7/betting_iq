@@ -3,9 +3,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <head>
 	<title></title>
+
+  <style type="text/css">
+     thead:before, thead:after { display: none; }
+     tbody:before, tbody:after { display: none; }
+ </style>
 </head>
+
 <body>
-  <h2>{{count($tickets)}} Possible Winning tickets</h2> 
+  <h2>{{count($out_put_tickets)}} Possible Winning tickets</h2> 
                
   <p>
      Original Codes: [
@@ -13,7 +19,7 @@
             {{$orig_ticket}},
         @endforeach]                    
   </p>
-      @foreach($tickets as $diffrent_options)
+      @foreach($out_put_tickets as $diffrent_options)
         <table border="2">                       
            <thead>
            	   <th>Game code</th> <th>Type</th> <th>Odd</th>
@@ -53,12 +59,20 @@
             @endif
 
 	        @if($amount < 1000)
+
+          <?php
+            $total_amount = $sum_amount*1000;
+
+           ?>
 	           <tr>
-	           	<td>Benefit</td> <td>UGX: {{number_format((int)($sum_amount*1000))}}</td> <td><i>The multiplier factor was upgraded to 1,000</i></td>
+	           	<td>Benefit</td> <td>UGX: {{number_format((int)($total_amount))}} Actual {{number_format($total_amount - ($tax/100 * $total_amount))}} ({{$tax}}% tax)</td> <td><i>The multiplier factor was upgraded to 1,000</i></td>
 	           </tr>                               
 	             @else
+                <?php
+                  $total_amount = $sum_amount*$amount;
+                 ?>
 	             <tr>
-	             	<td>Benefit</td> <td></td> <td>UGX: {{number_format((int)($sum_amount*$amount))}}</td>
+	             	<td>Benefit</td> <td></td> <td>UGX: {{number_format((int)($total_amount))}} Actual {{number_format($total_amount - ($tax/100 * $total_amount))}} ({{$tax}}% tax)</td>
 	             </tr>         
 	        @endif
            </tbody>

@@ -41,7 +41,7 @@ class ProcessTicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric']);
+        $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric','tax'=>'required']);
 
         $original_ticket = array();
         $tickets = array();
@@ -60,9 +60,9 @@ class ProcessTicketsController extends Controller
             array_push($tickets,$new_tickets);
         }
 
-        $data = ['tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$request->safeguards];
+        $data = ['out_put_tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$request->safeguards,'tax'=>$request->tax];
 
-        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
+        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'A4')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
         // return $pdf->download('tickets_'.time().'.pdf'); 
         return view('newtickets')->with($data);
     }

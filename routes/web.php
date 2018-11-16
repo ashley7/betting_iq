@@ -22,8 +22,6 @@ Auth::routes();
 Route::resource('ticket','TicketController');
 Route::resource('games','GameCodeController');
 Route::resource('process_ticket','ProcessTicketsController');
-
-
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/testing_grids', 'HomeController@testing_grids')->name('testing_grids');
 Route::post('/resize_photoes', 'TicketController@resize_photoes');

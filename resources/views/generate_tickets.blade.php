@@ -42,6 +42,9 @@
                         <label>Amount</label>
                         <input type="text" name="amount" class="form-control">
 
+                        <label>Tax</label>
+                        <input type="number" step="any" class="form-control" name="tax" value="15" min="0">
+
                         <br>
                         <button class="btn btn-primary" id="btn_gen" type="submit">Generate codes</button>
                     </form>                  
