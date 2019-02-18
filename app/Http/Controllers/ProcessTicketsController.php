@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\GameCode;
 use App\Ticket;
 
@@ -17,6 +18,18 @@ class ProcessTicketsController extends Controller
     {
 
 
+    }
+
+    public function get_tickets_folder()
+    {
+        //check if directory exists, else create it
+        $ticketFolder = public_path().'/tickets';
+
+        if (!File::exists($ticketFolder)) {
+            File::makeDirectory($ticketFolder);
+        }
+
+        return $ticketFolder;
     }
 
     /**
@@ -62,7 +75,9 @@ class ProcessTicketsController extends Controller
 
         $data = ['out_put_tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$request->safeguards,'tax'=>$request->tax];
 
-        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'A4')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
+        $ticketFolder = ProcessTicketsController::get_tickets_folder();
+
+        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'A4')->save($ticketFolder.'/tickets_'.session('tag').'.pdf');
         // return $pdf->download('tickets_'.time().'.pdf'); 
         return view('newtickets')->with($data);
     }
@@ -119,7 +134,9 @@ class ProcessTicketsController extends Controller
 
         $data = ['original_amount'=>(str_replace(',','',$request->amount)),'original_ticket'=>$original_ticket,'safeguards'=>$safeguards];
 
-        $pdf = \PDF::loadView('pdf_blade',$data)->setPaper('legal', 'portrait')->save(public_path().'/tickets/tickets_'.session('tag').'.pdf');
+        $ticketFolder = get_tickets_folder();
+
+        $pdf = \PDF::loadView('pdf_blade',$data)->setPaper('legal', 'portrait')->save($ticketFolder.'/tickets_'.session('tag').'.pdf');
  
         return view('newtickets_multipal')->with($data);
     }
@@ -134,4 +151,5 @@ class ProcessTicketsController extends Controller
     {
         //
     }
+
 }
