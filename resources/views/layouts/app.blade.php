@@ -23,6 +23,18 @@
             background-color: #228B22;
         }
      </style>
+
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-114291271-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-114291271-4');
+</script>
+
 </head>
 <body>
     <div id="app">
