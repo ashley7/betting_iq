@@ -19,7 +19,7 @@
                     $my_ticket = "tickets_".session('tag').".pdf";
                   @endphp
 
-                  <a  class="btn btn-primary" style="float: right;" href="{{asset('tickets')}}/{{$my_ticket}}">Download Tickets</a>
+                  <a  class="btn btn-success" style="float: right;" href="{{asset('tickets')}}/{{$my_ticket}}">Download Tickets</a>
                
 
             

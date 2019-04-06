@@ -28,7 +28,7 @@
                         <input type="number" step="any" id="odd" min="1" class="form-control" placeholder="e.g 1.7">
                      
                         <br>
-                        <button id="btnsave" class="btn btn-primary">Save</button>
+                        <button id="btnsave" class="btn btn-success">Save</button>
 
                         <a href="{{route('process_ticket.create')}}" class="btn btn-success" style="float: right;">Next</a>
                     <!-- </form> -->

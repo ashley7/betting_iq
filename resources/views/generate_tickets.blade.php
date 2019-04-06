@@ -46,7 +46,7 @@
                         <input type="number" step="any" class="form-control" name="tax" value="15" min="0">
 
                         <br>
-                        <button class="btn btn-primary" id="btn_gen" type="submit">Generate codes</button>
+                        <button class="btn btn-success" id="btn_gen" type="submit">Generate codes</button>
                     </form>                  
                 </div>
             </div>
