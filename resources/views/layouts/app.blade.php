@@ -19,40 +19,16 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style type="text/css">
-    .image-container {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .placeholder {
-      position: relative;
-      width: 100%;
-      filter: blur(10px);
-      transform: scale(1);
-    }
-
-
-    .picture {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      transition: opacity 1s linear;
-    }
-
-
-    .picture.loaded {
-      opacity: 1;
-    }
-</style>
+        .navbar{
+            background-color: #228B22;
+        }
+     </style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}" style="color: #fff;">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

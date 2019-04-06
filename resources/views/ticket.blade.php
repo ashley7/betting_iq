@@ -94,7 +94,7 @@
 
         });
 
-          function load_table(){
+        function load_table(){
               $.ajax({ 
                 url : "{{route('games.index')}}",
                 type : 'GET',

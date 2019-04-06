@@ -31,7 +31,7 @@
 
       <br><br>
 
-      <i>These tickets may be hidden during production</i>
+      <i>These tickets may be hidden in the future</i>
 
 
        <div class="card">

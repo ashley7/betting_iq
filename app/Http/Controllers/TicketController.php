@@ -113,7 +113,7 @@ class TicketController extends Controller
         foreach ($request->file('photo') as $image_files) {    
             $image_name=$count.'_'.time().'.'.$image_files->getClientOriginalExtension();
             $destination=public_path('images/'.$image_name);
-            \Image::make($image_files)->resize(2000,1500)->save($destination);
+            \Image::make($image_files)->resize($request->width,$request->height)->save($destination);
             $count++;
         }                    
     }  
