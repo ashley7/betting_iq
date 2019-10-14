@@ -23,7 +23,7 @@
                               <td>{{$tags->users->name}}</td>
                               <td>{{$tags->users->phone_number}}</td>
                               <td>{{$tags->users->email}}</td>
-                              <td>{{$tags->status}}</td>
+                              <td>{{$tags->paid}}</td>
                               <td><a href="/tickets/tickets_{{$tags->tag}}.pdf">Ticket</a></td>
                           </tr>
                           @endif
