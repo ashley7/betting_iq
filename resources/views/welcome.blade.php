@@ -83,14 +83,20 @@
     <body>
         <div class="flex-center position-ref full-height">     
 
-            <div class="content">
-                <div class="title m-b-md">
-                    <a style="text-decoration: none;" class="btn btn-success" href="/ticket">Start Generating <br> winning Tickets</a>
-                </div>
+            <div class="content">             
 
+                <div class="links">
+                    <p style="color: #FFF; font-size: 200px;">Bet IQ</p>
+                </div>
 
                 <div class="links">
                     <p style="color: #FFF; font-size: 30px;">Your betting companion</p>
+                </div>
+
+                <div class="title m-b-md">
+                    <a style="text-decoration: none; color: #ffffff;" class="btn btn-info" href="/login">Login</a>
+                    <br>
+                     <a style="text-decoration: none; color: #ffffff; font-size: 15px;" href="/register">Register here</a>
                 </div>
 
                 

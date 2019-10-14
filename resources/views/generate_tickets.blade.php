@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-            <div class="card-header"><h2>STEP 2: Enter the safe Guard and the Betting amount for your ticket</h2></div>
+            <div class="card-header">
+                <h6>STEP 2: Enter the safe Guard and the Betting amount for your ticket</h6>
+            </div>
             <br>
 
             <div class="card"> 

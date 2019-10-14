@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Ticket;
+use App\UserTag;
 
 
 class TicketController extends Controller
@@ -20,6 +21,12 @@ class TicketController extends Controller
        //      array_push($ticket, $tickets);
        //  }
        // echo  count($ticket); 
+
+        $save_user_tag = new UserTag();
+        $save_user_tag->tag = time();
+        $save_user_tag->user_id = \Auth::user()->id;
+        $save_user_tag->save();
+        session(['session'=>$save_user_tag->tag]);
       
         return view('ticket');
     }

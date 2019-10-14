@@ -30,7 +30,7 @@
             @foreach($diffrent_options as $tickets)
             
 	            <?php
-	               $game_code = App\GameCode::where('game_code',$tickets)->where('tag',session('tag'))->first(); 
+	               $game_code = App\GameCode::where('game_code',$tickets)->where('tag',session('session'))->first(); 
 	             ?>
 	              @if(!empty($game_code))
 	              <?php 

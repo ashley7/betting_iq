@@ -20,6 +20,7 @@ class CreateGameCodesTable extends Migration
             $table->string('game_type');
             $table->string('game_odd');
             $table->integer('tag')->unsigned(); 
+           
         });
     }
 

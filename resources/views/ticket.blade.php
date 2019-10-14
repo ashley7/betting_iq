@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-          <div class="card-header"><h2>STEP 1: Enter all your single ticket games</h2></div>
+          <div class="card-header">
+            <h6>STEP 1: Enter all your single ticket games</h6>
+          </div>
           <br>
             <div class="card">              
 
@@ -58,7 +60,7 @@
 @endsection
 
 @push('scripts')
-<script src="{{asset('js/jquery-1.12.4.js')}}"></script>
+
     <script type="text/javascript">
 
           load_table();

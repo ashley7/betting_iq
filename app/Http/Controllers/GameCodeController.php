@@ -14,7 +14,7 @@ class GameCodeController extends Controller
      */
     public function index()
     {
-        return GameCode::select('game_type','game_odd','game_code','id')->where('tag',session('tag'))->get();
+        return GameCode::select('game_type','game_odd','game_code','id')->where('tag',session('session') )->get();
     }
 
     /**
@@ -34,14 +34,15 @@ class GameCodeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {       
+
         $save_gamecode = new GameCode($request->all());
-        $save_gamecode->tag = session('tag');
+        $save_gamecode->tag = session('session');
         try {
             $save_gamecode->save();
-            echo "Saved successfully, your container has ".GameCode::where('tag',session('tag'))->count()." games";
+            echo "Saved successfully, your container has ".GameCode::where('tag',session('session') )->count()." games";
         } catch (\Exception $e) {
-            echo "All fields are required";
+            echo "All fields are required ".$e->getMessage();
         }
     }
 

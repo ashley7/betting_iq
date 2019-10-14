@@ -39,7 +39,7 @@ class ProcessTicketsController extends Controller
      */
     public function create()
     {
-        $game_code = GameCode::where('tag',session('tag'))->get();
+        $game_code = GameCode::where('tag',session('session'))->get();
         if ($game_code->count() == 0) {
             return back()->with(['status'=>'You have no games.']);
         }
@@ -59,7 +59,7 @@ class ProcessTicketsController extends Controller
         $original_ticket = array();
         $tickets = array();
 
-        $game_code = GameCode::where('tag',session('tag'))->select('game_code')->get();
+        $game_code = GameCode::where('tag',session('session'))->select('game_code')->get();
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
         }
@@ -70,14 +70,16 @@ class ProcessTicketsController extends Controller
         }
 
         foreach(new Ticket($original_ticket, (count($original_ticket) - $request->safeguards)) as $new_tickets){
+
             array_push($tickets,$new_tickets);
+            
         }
 
         $data = ['out_put_tickets'=>$tickets,'amount'=>(str_replace(',','',$request->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$request->safeguards,'tax'=>$request->tax];
 
         $ticketFolder = ProcessTicketsController::get_tickets_folder();
 
-        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'A4')->save($ticketFolder.'/tickets_'.session('tag').'.pdf');
+        $pdf = \PDF::loadView('pdf',$data)->setPaper('legal', 'A4')->save($ticketFolder.'/tickets_'.session('session').'.pdf');
         // return $pdf->download('tickets_'.time().'.pdf'); 
         return view('newtickets')->with($data);
     }
@@ -122,10 +124,12 @@ class ProcessTicketsController extends Controller
         $tickets = array();
         $safeguards = $request->safeguards;
 
-        $game_code = GameCode::where('tag',session('tag'))->select('game_code')->get();
+        $game_code = GameCode::where('tag',session('session'))->select('game_code')->get();
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
         }
+
+
 
         if ($safeguards == count($original_ticket)) {
             echo "Your Safe guard is equal to the Number of matches";
@@ -136,7 +140,7 @@ class ProcessTicketsController extends Controller
 
         $ticketFolder = get_tickets_folder();
 
-        $pdf = \PDF::loadView('pdf_blade',$data)->setPaper('legal', 'portrait')->save($ticketFolder.'/tickets_'.session('tag').'.pdf');
+        $pdf = \PDF::loadView('pdf_blade',$data)->setPaper('legal', 'portrait')->save($ticketFolder.'/tickets_'.session('session').'.pdf');
  
         return view('newtickets_multipal')->with($data);
     }

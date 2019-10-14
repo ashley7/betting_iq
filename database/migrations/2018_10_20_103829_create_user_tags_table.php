@@ -17,6 +17,8 @@ class CreateUserTagsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('tag')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('paid')->default('not paid');
         });
     }
 

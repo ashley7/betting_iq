@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ticket;
 use App\GameCode;
+use App\UserTag;
 
 
 class HomeController extends Controller
@@ -25,8 +26,24 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+
+      if (\Auth::user()->email == "admin@betiq.pro") {
+
+          $user_tags = UserTag::orderBy('id','DESC')->get();
+
+      }else{
+          $user_tags = UserTag::where('user_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+      }     
+
+      $data = [
+
+        'user_tags' => $user_tags
+
+      ];
+
+      return view('home')->with($data);
+
     }
 
     public static function grids($safeguard,$games,$amount,$tax)
@@ -97,7 +114,7 @@ class HomeController extends Controller
         {
            $sum_odds = 1;
            foreach ($ticket as $ticket_value) {
-             $game_code = GameCode::where('game_code',$ticket_value)->where('tag',session('tag'))->first(); 
+             $game_code = GameCode::where('game_code',$ticket_value)->where('tag',session('session'))->first(); 
              if (!empty($game_code)) {
                  if ($game_code->game_odd>0) {
                     $sum_odds = $sum_odds * $game_code->game_odd;
