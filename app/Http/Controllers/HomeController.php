@@ -142,4 +142,20 @@ class HomeController extends Controller
             //This function generates game codes in a way that is easy to read by separating them with commas
             return implode(" and ", $games);
         }
+
+        public function failed_payments()
+        {
+           return view('faldtopay');
+        }
+
+        public function payments_made_well()
+        {
+          $user_tags = UserTag::where('user_id',\Auth::user()->id)->where('tag',session('session'))->get()->last();
+
+          $user_tags->paid = "paid";
+
+          $user_tags->save();
+
+          return route('/home');
+        }
 }

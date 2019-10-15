@@ -31,10 +31,14 @@
 
       <br><br>
 
+      <form>
+          <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+          <button type="button" class="btn btn-success" onClick="payWithRave()">Pay to download the tickets</button>
+      </form>      
+
       <i>These tickets may be hidden in the future</i>
 
-
-       <div class="card">
+       <div class="card" id="tickets">
           <div class="card-body">
               <div class="row">
                   @foreach($out_put_tickets as $diffrent_options)
@@ -92,4 +96,48 @@
     </div>
 </div>
 @endsection
+
+@section('styles')
+
+  <style>
+    #tickets{
+      display: none;
+    }
+  </style>
+
+@endsection
+
+@push('scripts')
+
+  <script>
+    const API_publicKey = "FLWPUBK-1dfe7f6aa82e9fa93c80aee9bd7f4fca-X";
+
+    function payWithRave() {
+        var x = getpaidSetup({
+            PBFPubKey: API_publicKey,
+            customer_email: "{{Auth::user()->email}}",
+            amount: 500,
+            customer_phone: "{{Auth::user()->phone_number}}",
+            currency: "UGX",
+            txref: "rave-{{time()}}", 
+            
+            onclose: function() {
+               window.location = "/failed_payments";
+            },
+            callback: function(response) {
+              window.location = "/home";
+                // var txref = response.tx.txRef;
+                // console.log("This is the response returned after a charge", response);
+                // if (response.tx.chargeResponseCode == "00" || response.tx.chargeResponseCode == "0") {
+                //     window.location("/home");
+                // } else {                     
+                //     window.location("/failed_payments");
+                // }
+              x.close();   
+            }
+
+        });
+    }
+  </script>
+@endpush
 

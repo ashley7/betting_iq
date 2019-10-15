@@ -4,10 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>BetIQ</title>
-
-   
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -32,7 +29,7 @@
                 height: 100vh;
                 margin: 0;
                 background-repeat: no-repeat;
-                background-image: url('images/background.jpg');
+                background-image: url('images/bg.jpg');
                 background-size: 100% 100%;
            
             }
@@ -97,6 +94,8 @@
                     <a style="text-decoration: none; color: #ffffff;" class="btn btn-info" href="/login">Login</a>
                     <br>
                      <a style="text-decoration: none; color: #ffffff; font-size: 15px;" href="/register">Register here</a>
+                     <br>
+                     <span style="text-decoration: none; color: #000000; font-size: 30px;">It is better with few games</span>
                 </div>
 
                 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\GameCode;
 use App\Ticket;
+use App\UserTag;
+use App\Http\Controllers\ProcessTicketsController;
 
 class ProcessTicketsController extends Controller
 {
@@ -54,7 +56,7 @@ class ProcessTicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric','tax'=>'required']);
+        $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric','tax'=>'required']);         
 
         $original_ticket = array();
         $tickets = array();
@@ -116,8 +118,6 @@ class ProcessTicketsController extends Controller
     public function update(Request $request, $id)
     {
 
-
-
         $this->validate($request,['amount'=>'required','safeguards'=>'required|numeric']);
 
         $original_ticket = array();
@@ -128,8 +128,6 @@ class ProcessTicketsController extends Controller
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
         }
-
-
 
         if ($safeguards == count($original_ticket)) {
             echo "Your Safe guard is equal to the Number of matches";
@@ -154,6 +152,37 @@ class ProcessTicketsController extends Controller
     public function destroy($id)
     {
         //
+    } 
+
+    public function randomAccessTickets($tag_id)
+    {
+
+        session(['session'=>$tag_id]);
+
+        $user_tags = UserTag::where('user_id',\Auth::user()->id)->where('tag',$tag_id)->get()->last();
+
+        $original_ticket = array();
+        $tickets = array();
+
+        $game_code = GameCode::where('tag',$user_tags->tag)->select('game_code')->get();
+        foreach ($game_code as $key => $game_value) {
+            array_push($original_ticket, $game_value->game_code);
+        }
+
+        if ($game_code->safe_guard == count($original_ticket)) {
+            echo "Your Safe guard is equal to the Number of matches";
+            return;
+        }
+
+        foreach(new Ticket($original_ticket, (count($original_ticket) - $game_code->safe_guard)) as $new_tickets){
+
+            array_push($tickets,$new_tickets);
+            
+        }
+
+        $data = ['out_put_tickets'=>$tickets,'amount'=>(str_replace(',','',$user_tags->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$game_code->safe_guard,'tax'=>$user_tags->tax];
+ 
+        return view('newtickets')->with($data);
     }
 
 }

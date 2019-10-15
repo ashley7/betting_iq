@@ -19,6 +19,9 @@ class CreateUserTagsTable extends Migration
             $table->integer('tag')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('paid')->default('not paid');
+            $table->integer('safe_guard')->unsigned()->default(0);
+            $table->decimal('amount',10,2)->default(0.00);
+            $table->decimal('tax',3,2)->default(0.00);
         });
     }
 
