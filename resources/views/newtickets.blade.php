@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+      @php
+        $user_tags = App\UserTag::where('user_id',Auth::user()->id)->where('tag',session('session'))->get()->last();
+      @endphp
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -31,9 +35,7 @@
 
       <br><br>
 
-      @php
-        $user_tags = App\UserTag::where('user_id',Auth::user()->id)->where('tag',session('session'))->get()->last();
-      @endphp
+     
 
       @if($user_tags->paid == "not paid")
 

@@ -33,16 +33,8 @@
                               <td>{{$tags->paid}}</td>
                               @if(\Auth::user()->email == "admin@betiq.pro")
                                <td><a href="/ticket_details/{{$tags->tag}}">Ticket</a></td>
-                               @else
-
-                                @if($tags->paid == "paid" || $number_of_tickets < 3)
-                                  <td><a href="/ticket_details/{{$tags->tag}}">Ticket</a></td>
-                                  @else
-
-                                   <td></td>
-                                   
-                                  @endif
-
+                              @else                                 
+                                <td><a href="/ticket_details/{{$tags->tag}}">Ticket</a></td>
                               @endif
                           </tr>
                           @endif
