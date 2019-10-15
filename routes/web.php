@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/testing_grids', 'HomeController@testing_grids')->name('testing_grids');
 	Route::post('/resize_photoes', 'TicketController@resize_photoes');
 	Route::get('/failed_payments','HomeController@failed_payments');
+	Route::get('/payments_made_well','HomeController@payments_made_well');
 	Route::get('/ticket_details/{tad_id}','ProcessTicketsController@randomAccessTickets');
 
 });

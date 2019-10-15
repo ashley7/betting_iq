@@ -156,6 +156,6 @@ class HomeController extends Controller
 
           $user_tags->save();
 
-          return route('/home');
+          return route('/home')->with(['status'=>'Thank you for doing business with us']);
         }
 }

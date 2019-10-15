@@ -31,14 +31,22 @@
 
       <br><br>
 
+      @php
+        $user_tags = App\UserTag::where('user_id',Auth::user()->id)->where('tag',session('session'))->get()->last();
+      @endphp
+
+      @if($user_tags->paid == "not paid")
+
+      <i>Pay UGX 1000 to download the winning tickets</i>
+
       <form>
           <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
           <button type="button" class="btn btn-success" onClick="payWithRave()">Pay to download the tickets</button>
-      </form>      
+      </form> 
 
-      <i>These tickets may be hidden in the future</i>
+      @elseif($user_tags->paid == "paid") 
 
-       <div class="card" id="tickets">
+      <div class="card">
           <div class="card-body">
               <div class="row">
                   @foreach($out_put_tickets as $diffrent_options)
@@ -91,7 +99,10 @@
                     @endforeach 
                   </div> 
                 </div>
-             </div>                 
+             </div> 
+
+             @endif
+
           </div>
     </div>
 </div>
@@ -110,13 +121,13 @@
 @push('scripts')
 
   <script>
-    const API_publicKey = "FLWPUBK-1dfe7f6aa82e9fa93c80aee9bd7f4fca-X";
+    const API_publicKey = "{{ env('FLPUBK') }}";
 
     function payWithRave() {
         var x = getpaidSetup({
             PBFPubKey: API_publicKey,
             customer_email: "{{Auth::user()->email}}",
-            amount: 500,
+            amount: 1000,
             customer_phone: "{{Auth::user()->phone_number}}",
             currency: "UGX",
             txref: "rave-{{time()}}", 
@@ -125,14 +136,7 @@
                window.location = "/failed_payments";
             },
             callback: function(response) {
-              window.location = "/home";
-                // var txref = response.tx.txRef;
-                // console.log("This is the response returned after a charge", response);
-                // if (response.tx.chargeResponseCode == "00" || response.tx.chargeResponseCode == "0") {
-                //     window.location("/home");
-                // } else {                     
-                //     window.location("/failed_payments");
-                // }
+              window.location = "/payments_made_well";                
               x.close();   
             }
 

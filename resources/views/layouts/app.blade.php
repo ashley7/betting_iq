@@ -52,7 +52,7 @@
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item">
-                            <a style="color: #FFFFFF" class="nav-link" href="/ticket">{{ __('Generate winning tickets') }}</a>
+                            
                         </li>
 
                     </ul>
@@ -99,6 +99,12 @@
                     <div class="text-danger">{{$error}}</div>              
                 @endforeach
             @endif
+            <div>
+              <center>
+                <a style="color: #fff" class="btn btn-info" href="/ticket">{{ __('Generate winning tickets') }}</a>
+              </center>
+            </div>
+            <br><br>
             @yield('content')
         </main>
     </div>

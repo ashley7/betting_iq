@@ -61,6 +61,14 @@ class ProcessTicketsController extends Controller
         $original_ticket = array();
         $tickets = array();
 
+        $user_tags = UserTag::where('user_id',\Auth::user()->id)->where('tag',session('session'))->get()->last();
+
+        $user_tags->safe_guard = $request->safeguards;
+        $user_tags->amount = $request->amount;
+        $user_tags->tax = (int)$request->tax;
+
+        $user_tags->save();
+
         $game_code = GameCode::where('tag',session('session'))->select('game_code')->get();
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
@@ -164,24 +172,25 @@ class ProcessTicketsController extends Controller
         $original_ticket = array();
         $tickets = array();
 
-        $game_code = GameCode::where('tag',$user_tags->tag)->select('game_code')->get();
+        $game_code = GameCode::where('tag',$tag_id)->select('game_code')->get();
+
         foreach ($game_code as $key => $game_value) {
             array_push($original_ticket, $game_value->game_code);
         }
 
-        if ($game_code->safe_guard == count($original_ticket)) {
+        if ($user_tags->safe_guard == count($original_ticket)) {
             echo "Your Safe guard is equal to the Number of matches";
             return;
         }
 
-        foreach(new Ticket($original_ticket, (count($original_ticket) - $game_code->safe_guard)) as $new_tickets){
+        foreach(new Ticket($original_ticket, (count($original_ticket) - $user_tags->safe_guard)) as $new_tickets){
 
             array_push($tickets,$new_tickets);
             
         }
 
-        $data = ['out_put_tickets'=>$tickets,'amount'=>(str_replace(',','',$user_tags->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$game_code->safe_guard,'tax'=>$user_tags->tax];
- 
+        $data = ['out_put_tickets'=>$tickets,'amount'=>(str_replace(',','',$user_tags->amount)/count($tickets)),'original_ticket'=>$original_ticket,'safeguards'=>$user_tags->safe_guard,'tax'=>$user_tags->tax];
+       
         return view('newtickets')->with($data);
     }
 
