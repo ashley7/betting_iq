@@ -83,7 +83,7 @@
             <div class="content">             
 
                 <div class="links">
-                    <p style="color: #FFF; font-size: 200px;">Bet IQ</p>
+                    <p style="color: #FFF; font-size: 100%;">Bet IQ</p>
                 </div>
 
                 <div class="links">
