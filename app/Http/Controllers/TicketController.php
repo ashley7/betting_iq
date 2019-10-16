@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use App\UserTag;
 
-
 class TicketController extends Controller
 {
     /**
@@ -124,4 +123,11 @@ class TicketController extends Controller
             $count++;
         }                    
     }  
+
+
+    public static function numberOfTickets()
+    {
+        UserTag::where('user_id',\Auth::user()->id)->where('safe_guard',0)->delete();
+        return UserTag::where('user_id',\Auth::user()->id)->get()->count();    
+    }
 }

@@ -99,12 +99,16 @@
                     <div class="text-danger">{{$error}}</div>              
                 @endforeach
             @endif
-            <div>
-              <center>
+            <div class="container">
+               <div class="row justify-content-center">
+                <div class="col-md-12">       
                 <a style="color: #fff" class="btn btn-info" href="/ticket">{{ __('Generate winning tickets') }}</a>
-              </center>
-            </div>
-            <br><br>
+                <br><br>
+                </div>
+               </div>
+            </div>          
+             
+       
             @yield('content')
         </main>
     </div>

@@ -30,10 +30,10 @@ class HomeController extends Controller
 
       if (\Auth::user()->email == "admin@betiq.pro") {
 
-          $user_tags = UserTag::orderBy('id','DESC')->get();
+          $user_tags = UserTag::orderBy('id','DESC')->paginate(20);
 
       }else{
-          $user_tags = UserTag::where('user_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+          $user_tags = UserTag::where('user_id',\Auth::user()->id)->orderBy('id','DESC')->paginate(20);
       }     
 
       $data = [
@@ -156,6 +156,6 @@ class HomeController extends Controller
 
           $user_tags->save();
 
-          return route('/home')->with(['status'=>'Thank you for doing business with us']);
+          return redirect()->route('home')->with(['status'=>'Thank you for doing business with us']);
         }
 }

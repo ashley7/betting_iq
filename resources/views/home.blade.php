@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+  $free_tickets = 0;
+  $numberTickets = App\Http\Controllers\TicketController::numberOfTickets();
+    if($numberTickets < 6)
+       $free_tickets = 5 - $numberTickets;     
+@endphp
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -12,6 +20,8 @@
                    <div class="card-body">
 
                     <h4>List of my ticket</h4>
+
+                      <span class="text-danger" style="float: right;">You still have from {{$free_tickets}} tickets left</span>
                       
                       <br><br>                 
 
@@ -30,7 +40,15 @@
                               <td>{{$tags->users->name}}</td>
                               <td>{{$tags->users->phone_number}}</td>
                               <td>{{$tags->users->email}}</td>
-                              <td>{{$tags->paid}}</td>
+                              <td>
+                                
+                                @if($tags->paid == "paid")
+                                  <span class="text-success">{{$tags->paid}}</span>
+                                  @else
+                                  <span class="text-danger">{{$tags->paid}}</span>
+                                @endif
+
+                              </td>
                               @if(\Auth::user()->email == "admin@betiq.pro")
                                <td><a href="/ticket_details/{{$tags->tag}}">Ticket</a></td>
                               @else                                 
@@ -39,7 +57,9 @@
                           </tr>
                           @endif
                         @endforeach                        
-                    </table>                  
+                    </table>  
+
+                    {{$user_tags->links()}}                
                    
                    </div>
 
