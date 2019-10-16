@@ -21,7 +21,7 @@
 
                     <h4>List of my ticket</h4>
 
-                      <span class="text-danger" style="float: right;">You still have  {{$free_tickets}} tickets left</span>
+                      <span class="text-danger" style="float: right;">You still have free {{$free_tickets}} tickets left</span>
                       
                       <br><br>                 
 
