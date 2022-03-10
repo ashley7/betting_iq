@@ -94,7 +94,7 @@
         var x = getpaidSetup({
             PBFPubKey: API_publicKey,
             customer_email: "{{Auth::user()->email}}",
-            amount: 500,
+            amount: 1000,
             customer_phone: "{{Auth::user()->phone_number}}",
             currency: "UGX",
             txref: "rave-{{time()}}", 
