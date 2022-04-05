@@ -9,7 +9,7 @@
         "barryvdh/laravel-dompdf": "^0.8.3",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.3",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "6.20.*",
         "laravel/tinker": "^1.0"
     },
     "require-dev": {
