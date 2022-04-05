@@ -28,4 +28,25 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function sendEmail($to,$subject,$sms,$reply,$replyName,$customerName,$cc) {
+
+        try {
+            
+            \Mail::send(['text'=>'layouts.mail'], ['email'=>$sms],
+
+               function($message) use ($to,$subject,$reply,$replyName,$customerName,$cc) {
+
+               $message->to($to, $customerName)
+                       ->replyTo($reply,$replyName)
+                       ->cc($cc)
+                       ->subject($subject);
+
+                $message->from(env("MAIL_FROM_ADDRESS"),env("APP_NAME"));
+
+           });
+
+        } catch (\Exception $e) {}
+
+    }
+
 }

@@ -56,6 +56,10 @@
 
             .content {
                 text-align: center;
+                background-color: #000;
+                padding: 10px;
+                opacity: 50%;
+                border-radius: 5px;
             }
 
             .title{
@@ -83,7 +87,7 @@
             <div class="content">             
 
                 <div class="links">
-                    <p style="color: #FFF; font-size: 100px;">BetIQ</p>
+                    <p style="color: #FFF; font-size: 100px;">Bet-IQ</p>
                 </div>
 
                 <div class="links">
@@ -93,9 +97,9 @@
                 <div class="title m-b-md">
                     <a style="text-decoration: none; color: #ffffff;" class="btn btn-info" href="/login">Login</a>
                     <br>
-                     <a style="text-decoration: none; color: #ffffff; font-size: 15px;" href="/register">Register here</a>
+                     <a style="text-decoration: none; color: #ffffff; font-size: 20px;" href="/register">Register here</a>
                      <br>
-                     <span style="text-decoration: none; color: #000000; font-size: 30px;">It is better with few games</span>
+                     <span style="text-decoration: none; color: #ffffff; font-size: 30px;">It is better with few games</span>
                 </div>
 
                 

@@ -14,14 +14,11 @@ class CreateBetsTable extends Migration
     public function up()
     {
         Schema::create('bets', function (Blueprint $table) {
+
             $table->increments('id');
-            $table->timestamps();
-            $table->string('league')->nullable();
-            $table->string('game')->nullable();
-            $table->string('game_number')->nullable();
-            $table->string('betting_comapy')->nullable();
-            $table->string('bet')->nullable();
-            $table->string('odd')->nullable();
+            $table->timestamps();           
+            $table->text('bet')->nullable();
+     
         });
     }
 

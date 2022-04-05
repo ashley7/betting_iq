@@ -106,9 +106,9 @@
             <div class="container">
                <div class="row justify-content-center">
                 <div class="col-md-12">       
-                <a style="color: #fff" class="btn btn-info" href="/ticket">{{ __('Generate winning tickets') }}</a>
+                <a style="color: #fff" class="btn btn-success" href="/ticket">{{ __('Generate winning tickets') }}</a>
                 
-                <a style="color: #fff" class="btn btn-info" href="/bet">{{ __('Winning Games') }}</a>
+                <a style="color: #fff" class="btn btn-success" href="/bet">{{ __('Winning Games') }}</a>
                 <br><br>
                 </div>
                </div>

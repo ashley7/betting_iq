@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bet;
+use App\User;
 use Illuminate\Http\Request;
 
 class BetController extends Controller
@@ -52,21 +53,15 @@ class BetController extends Controller
     public function store(Request $request)
     {
 
-        $saveBet = new Bet();
+        $saveBet = new Bet();        
 
-        $saveBet->league = $request->league;
+        $saveBet->bet = $request->bet;   
 
-        $saveBet->game = $request->game;
+        $users = User::get()->pluck('email');
 
-        $saveBet->game_number = $request->game_number;
+        $sms = "A new bet has been posted, please check it out on ".env('APP_NAME');
 
-        $saveBet->betting_comapy = $request->betting_comapy;
-
-        $saveBet->bet = $request->bet;
-
-        $saveBet->odd = $request->odd;
-
-        $saveBet->save();
+        User::sendEmail(env('MAIL_USERNAME'),"New Bet placed",$sms,env('MAIL_USERNAME'),"BET-IQ","BET-IQ Client",$users);
 
         return redirect()->route('bet.index');
 

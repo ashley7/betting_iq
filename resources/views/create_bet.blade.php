@@ -14,24 +14,10 @@
                 <div class="card-body">  
 
                 <form method="POST" action="{{route('bet.store')}}">
-                    @csrf
-                    <label>League Name</label>
-                    <input type="text" name="league" class="form-control">
+                    @csrf                  
 
-                    <label>Game</label>
-                    <input type="text" name="game" class="form-control">
-
-                    <label>Game Number</label>
-                    <input type="text" name="game_number" class="form-control">
-
-                    <label>Betting comapy</label>
-                    <input type="text" name="betting_comapy" class="form-control">
-
-                    <label>Bet</label>
-                    <input type="text" name="bet" class="form-control">
-
-                    <label>Odd</label>
-                    <input type="text" name="odd" class="form-control">
+                    <label>Bet Detail</label>
+                    <textarea name="bet" class="form-control"></textarea>          
 
                     <hr>
                     <button class="btn btn-success" type="submit">Save</button>
@@ -46,4 +32,17 @@
     </div>
 </div>
 @endsection
+
+@push('scripts') 
+
+<script src="https://cdn.ckeditor.com/4.18.0/full/ckeditor.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+         CKEDITOR.replace( 'bet' );
+    
+    });
+</script>
+
+@endpush
  
