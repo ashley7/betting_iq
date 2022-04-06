@@ -55,7 +55,9 @@ class BetController extends Controller
 
         $saveBet = new Bet();        
 
-        $saveBet->bet = $request->bet;   
+        $saveBet->bet = $request->bet; 
+
+        $saveBet->save();  
 
         $users = User::get()->pluck('email');
 
